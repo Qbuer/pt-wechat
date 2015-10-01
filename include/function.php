@@ -86,7 +86,7 @@
 			$count = count( $result );
 			$i = 1;
 			foreach ($result as $key => $value) {
-				$text .= "{$value['name']}<a href = 'torrents.php?id={$value['id']}&openid=$user_openid'>[详情]</a>做种[{$value['seeders']}]下载[{$value['leechers']}]<a href = 'download.php?torrent={$value['id']}&openid=$user_openid'>下载</a><br>";
+				$text .= "{$value['name']}<a href = 'torrents.php?torrent={$value['id']}&openid=$user_openid'>[详情]</a>做种[{$value['seeders']}]下载[{$value['leechers']}]<a href = 'download.php?torrent={$value['id']}&openid=$user_openid'>下载</a><br>";
 				$i++;
 				if($limit != 0 )
 					if( $i > $limit ) break;
