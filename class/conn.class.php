@@ -55,5 +55,9 @@
  	public function getlastid(){
  		return  mysqli_insert_id($this->conn);
  	}
+ 	public function disconnect(){
+ 		mysqli_close($this->conn);
+ 		return true;
+ 	}
 
  }
