@@ -4,5 +4,5 @@
 		'server'	=>'localhost',
 		'user'		=>'root',
 		'password'	=>'',
-		'db'		=>'lib'
+		'db'		=>'nexus'
 		);
