@@ -1,0 +1,26 @@
+body {
+	background-color: #f5f5f5;
+	font-family: 'Microsoft YaHei';
+}
+.box {
+	padding: 5px;
+	margin: 5px 0;
+	background-color: #fff;
+    border: 1px solid #fff;
+    cursor: move;
+    display: block;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 1px 1px #dcdcdc;
+}
+.title {
+	width:80%;
+	display: inline-block;
+}
+.title p {
+	margin:0;
+}
+.action {
+	width: 15%;
+	display: inline-block;
+}

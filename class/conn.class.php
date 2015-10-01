@@ -5,7 +5,6 @@
  * 
  *
 */
-	require_once('../config.php');
  class conn{
  	public $conn;
  	public function conn(){
