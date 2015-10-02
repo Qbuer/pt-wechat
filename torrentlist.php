@@ -3,8 +3,6 @@
 	require_once('./config.php');
 	include('./include/function.php');
 	$con = new conn();
-	//if(isset($_GET['openid'])) $user_openid = $con->mres( $_GET['openid'] );
-	//else die();
 	$keyword = NULL;
 	$other = NULL;
 	if(isset($_GET['openid']) && $_GET['openid']!='') 
