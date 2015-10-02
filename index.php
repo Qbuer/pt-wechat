@@ -5,7 +5,7 @@
 	include ('./include/function.php');
 	header('Content-type:text/html;charset=utf-8');
 	const ALREADY_BINDED = '你已经绑定过了';
-	const HELP = '输入 ...';
+	const HELP = '支持的命令: 状态 , 查询@关键字 , 最新 , 热门';
 	$user_ptid = -1;
 	$operation = 'NULL';
 	$text = '';
@@ -13,7 +13,7 @@
 	$user_openid = '';
 	$con = new conn();
 	$weObj = new Wechat( $wechat_options );
-	//$weObj->valid();
+	$weObj->valid();
 	$msg = $weObj->getRev()->getRevData();//获取用户发送的消息
 	$user_openid = $weObj->getRev()->getRevFrom();//获取用户openid
 	$user_openid = $con->mres($user_openid);
