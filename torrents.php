@@ -28,7 +28,7 @@ require('./class/conn.class.php');
 				<label for = 'keyword' class = 'sr-only' >关键字</label>
 				<input type = 'text' name = 'keyword' class = 'form-control' id = 'keyword' placeholder = '搜索...'>
 				<input type = 'text' name = 'openid' style = 'display:none' value = '<?php echo $user_openid ?>'>
-				<button class = 'btn btn-primary'>搜索</button>
+				<button class = 'btn btn-primary' id = 'search-button'>搜索</button>
 			</form>
 		</div>
 		<div>

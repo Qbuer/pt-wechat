@@ -11,5 +11,5 @@
 		'encodingaeskey' => '' //填写设定的EncodingAESKey，如接口为明文模式可忽略
 		);
 	$ptset = array(
-		'base_url' => 'pt.ghtt.net'
+		'base_url' => 'localhost'
 		);

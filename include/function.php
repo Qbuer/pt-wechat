@@ -29,7 +29,7 @@
 	function user_bind() {
 		global $ptset,$user_openid;
 		$base_url = $ptset['base_url'];
-		$url = "http://$base_url/weixin/go.php?openid=$user_openid&operation=bind";
+		$url = "http://$base_url/ptweixin/go.php?openid=$user_openid&operation=bind";
 		$text = "<a href = '$url' >点击绑定</a>";
 		return $text;
 	}
@@ -58,7 +58,7 @@
 	function search( $keyword , $other ) {
 		global $con,$user_openid,$user_ptid;
 		if( $keyword ) {
-			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' ";
+			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%' ";
 			$result = torrents_info( $sql , 5 );
 			$text = $result['text'];
 			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>全部";

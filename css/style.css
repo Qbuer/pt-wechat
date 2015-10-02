@@ -28,3 +28,12 @@ body {
 	margin-bottom: 0;
     text-align: right;
 }
+#keyword {
+	width: 83%;
+    margin-left: 0;
+    display: inline-block;
+}
+#search-button {
+	padding:6px 0px;
+	width : 15%;
+}

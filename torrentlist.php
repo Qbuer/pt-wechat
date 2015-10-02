@@ -19,7 +19,7 @@
 	}
 	if( bind_check() ) {
 		if( $keyword ){
-			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' ";
+			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%'";
 			$result = $con->query($sql);
 		}else if ($other == 'hot'){
 			$sql = "SELECT * FROM `torrents` WHERE `picktype` = 'hot' ";
@@ -43,7 +43,7 @@
 				<label for = 'keyword' class = 'sr-only' >关键字</label>
 				<input type = 'text' name = 'keyword' class = 'form-control' id = 'keyword' placeholder = '搜索...'>
 				<input type = 'text' name = 'openid' style = 'display:none' value = '<?php echo $user_openid ?>'>
-				<button class = 'btn btn-primary'>搜索</button>
+				<button class = 'btn btn-primary ' id = 'search-button'>搜索</button>
 			</form>
 		</div>
 		<div>
