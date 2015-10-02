@@ -6,17 +6,18 @@
 	header('Content-type:text/html;charset=utf-8');
 	const ALREADY_BINDED = '你已经绑定过了';
 	const HELP = '输入 ...';
-	$con = new conn();
-	$weObj = new Wechat( $wechat_options );
-	$weObj->valid();
-	$user_openid = $weobj->getRevFrom();//获取用户openid
-	$user_openid = $con->mres($user_openid);
-	$msg = $weobj->getRev();//获取用户发送的消息
-	$msg = trim($msg);
 	$user_ptid = -1;
 	$operation = 'NULL';
 	$text = '';
 	$keyword = '';
+	$user_openid = '';
+	$con = new conn();
+	$weObj = new Wechat( $wechat_options );
+	//$weObj->valid();
+	$msg = $weObj->getRev()->getRevData();//获取用户发送的消息
+	$user_openid = $weObj->getRev()->getRevFrom();//获取用户openid
+	$user_openid = $con->mres($user_openid);
+	$msg = trim($msg['Content']);
 	switch ($msg) {
 		case '绑定':
 			$operation = BIND;

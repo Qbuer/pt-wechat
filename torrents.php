@@ -35,8 +35,8 @@ require('./class/conn.class.php');
 			<?php foreach ($result as $key => $value) : ?>
 					<div class = 'box'>
 						<div class = 'title'>
-							<p><?php echo $value['name'];?></p>
-							<p><?php echo $value['small_descr'];?></p>
+							<p class = 'torrent-name'><?php echo $value['name'];?></p>
+							<p class = 'torrent-name'><?php echo $value['small_descr'];?></p>
 							<p>上传:<?php echo $value['seeders'];?>&nbsp;&nbsp;下载:<?php echo $value['leechers'];?></p>
 						</div>
 						<div class = 'action'>

@@ -37,3 +37,6 @@ body {
 	padding:6px 0px;
 	width : 15%;
 }
+.torrent-name {
+	word-break:break-all;
+}

@@ -3,6 +3,7 @@
  * @author qbuer
  * 建立依赖表
  */
+	require_once('./config.php');
 	require_once('./class/conn.class.php');
 	$con=new conn();
 	$sql = 

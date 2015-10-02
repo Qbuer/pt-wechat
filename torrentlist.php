@@ -32,7 +32,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<title>种子列表</title>
 	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/style.css?ver=3">
 </head>
 <body>
 	<div class = 'container'>
@@ -48,8 +48,8 @@
 			<?php foreach ($result as $key => $value) : ?>
 					<div class = 'box'>
 						<div class = 'title'>
-							<a href ='torrents.php?torrent=<?php echo $value['id'];?>&openid=<?php echo $user_openid;?> '><p><?php echo $value['name'];?></p></a>
-							<p><?php echo $value['small_descr'];?></p>
+							<a href ='torrents.php?torrent=<?php echo $value['id'];?>&openid=<?php echo $user_openid;?> '><p class = 'torrent-name'><?php echo $value['name'];?></p></a>
+							<p class = 'torrent-name'><?php echo $value['small_descr'];?></p>
 							<p>上传:<?php echo $value['seeders'];?>&nbsp;&nbsp;下载:<?php echo $value['leechers'];?></p>
 						</div>
 						<div class = 'action'>

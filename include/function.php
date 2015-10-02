@@ -56,17 +56,17 @@
 	 * @return string $text 查询结果
 	 */
 	function search( $keyword , $other ) {
-		global $con,$user_openid,$user_ptid;
+		global $con,$user_openid,$user_ptid,$ptset;
 		if( $keyword ) {
-			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%' ";
+			$sql = "SELECT * FROM `torrents` WHERE (`name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%' ) AND `seeders` != 0";
 			$result = torrents_info( $sql , 5 );
 			$text = $result['text'];
-			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>全部";
+			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>全部";
 		}else if( $other == HOT ) {
-			$sql = "SELECT * FROM `torrents` WHERE `picktype` = 'hot' ";
+			$sql = "SELECT * FROM `torrents` WHERE `picktype` = 'hot' AND `seeders` != 0 ORDER BY `id` desc limit 5 ";
 			$result = torrents_info( $sql , 5 );
 			$text = $result['text'];
-			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'torrentlist.php?other=hot&openid=$user_openid'>[查看]</a>全部";
+			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?other=hot&openid=$user_openid'>[查看]</a>全部";
 		}else if ( $other == NEWLY ) {
 			$sql = "SELECT * FROM torrents where visible='yes' ORDER BY added DESC LIMIT 5";
 			$result = torrents_info( $sql , 5 );
@@ -80,7 +80,7 @@
 	 * @return array text 查询结果 count 查询数量
 	 */
 	function torrents_info ( $sql , $limit) {
-		global $con,$user_openid,$user_ptid;
+		global $con,$user_openid,$user_ptid,$ptset;
 		$result = $con->query($sql);
 		$text = '';
 		$empty = '没有查询结果';
@@ -89,11 +89,15 @@
 			$count = count( $result );
 			$i = 1;
 			foreach ($result as $key => $value) {
-				$text .= "{$value['name']}<a href = 'torrents.php?torrent={$value['id']}&openid=$user_openid'>[详情]</a>做种[{$value['seeders']}]下载[{$value['leechers']}]<a href = 'download.php?torrent={$value['id']}&openid=$user_openid'>下载</a><br>";
+				$size = $value['size'];
+				$size = mksize($size);
+				if( $value['small_descr']== '' )  $value['small_descr'] = $value['name'];
+				$text .= "{$value['small_descr']}\n{$size}\n做种[{$value['seeders']}]下载[{$value['leechers']}]\n<a href = 'http://{$ptset['base_url']}/ptweixin/torrents.php?torrent={$value['id']}&openid=$user_openid'>[详情]</a><a href = 'http://{$ptset['base_url']}/ptweixin/download.html.php?torrent={$value['id']}&openid=$user_openid'>[下载]</a>\n\n";
 				$i++;
 				if($limit != 0 )
 					if( $i > $limit ) break;
 			}
+			$text = trim($text);
 			return array( 'text' => $text , 'count' => $count);
 		}else 
 			return array( 'text' => $empty , 'count' => 0);
@@ -105,10 +109,10 @@
 	 */
 	function user_status () {
 		global $con,$user_openid,$user_ptid;
-		$sql = "SELECT COUNT(*) FROM `peers` WHERE `peer_id` = $user_ptid AND `seeder` = 'yes' ";
+		$sql = "SELECT COUNT(*) FROM `peers` WHERE `userid` = $user_ptid AND `seeder` = 'yes' ";
 		$result = $con->query($sql);
 		$seed = $result[0]['COUNT(*)'];//做种数
-		$sql = "SELECT COUNT(*) FROM `peers` WHERE `peer_id` = $user_ptid AND `seeder` = 'no' ";
+		$sql = "SELECT COUNT(*) FROM `peers` WHERE `userid` = $user_ptid AND `seeder` = 'no' ";
 		$result = $con->query($sql);
 		$leed = $result[0]['COUNT(*)'];//下载数
 		$sql = "SELECT * FROM `users` WHERE  `id` = $user_ptid";
@@ -117,7 +121,7 @@
 		$user_name = $rs['username'];
 		$downloaded = mksize( $rs['downloaded'] * 1);
 		$uploaded = mksize( $rs['uploaded'] * 1);
-		$text = "亲爱的{$user_name}!么么哒<br>上传:{$seed},下载:{$leed}<br>上传量:{$uploaded},下载量:{$downloaded}";
+		$text = "亲爱的{$user_name}!么么哒\n上传:{$seed},下载:{$leed}\n上传量:{$uploaded}\n下载量:{$downloaded}";
 		return $text;
 	}
 	/**
