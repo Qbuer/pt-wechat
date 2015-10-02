@@ -17,7 +17,7 @@
 	}
 	if( bind_check() ) {
 		if( $keyword ){
-			$sql = "SELECT * FROM `torrents` WHERE `name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%'";
+			$sql = "SELECT * FROM `torrents` WHERE (`name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%') AND `seeders` != 0 limit 20";
 			$result = $con->query($sql);
 		}else if ($other == 'hot'){
 			$sql = "SELECT * FROM `torrents` WHERE `picktype` = 'hot' ";

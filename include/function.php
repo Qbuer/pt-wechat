@@ -61,12 +61,13 @@
 			$sql = "SELECT * FROM `torrents` WHERE (`name` LIKE '%$keyword%' OR `small_descr` LIKE '%$keyword%' ) AND `seeders` != 0";
 			$result = torrents_info( $sql , 5 );
 			$text = $result['text'];
-			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>全部";
+			if( $result['count'] > 20 ) $text .= "\n\n共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>前20条结果.\n建议精确关键字!";
+			else if( $result['count'] > 5 ) $text .= "\n\n共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?keyword={$keyword}&openid=$user_openid'>[查看]</a>";
 		}else if( $other == HOT ) {
 			$sql = "SELECT * FROM `torrents` WHERE `picktype` = 'hot' AND `seeders` != 0 ORDER BY `id` desc limit 5 ";
 			$result = torrents_info( $sql , 5 );
 			$text = $result['text'];
-			if( $result['count'] > 5 ) $text .= "共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?other=hot&openid=$user_openid'>[查看]</a>全部";
+			if( $result['count'] > 5 ) $text .= "\n共有{$result['count']}条结果,<a href = 'http://{$ptset['base_url']}/ptweixin/torrentlist.php?other=hot&openid=$user_openid'>[查看]</a>全部";
 		}else if ( $other == NEWLY ) {
 			$sql = "SELECT * FROM torrents where visible='yes' ORDER BY added DESC LIMIT 5";
 			$result = torrents_info( $sql , 5 );
