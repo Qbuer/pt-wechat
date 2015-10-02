@@ -23,3 +23,8 @@ body {
 	width: 15%;
 	display: inline-block;
 }
+.control-label {
+	padding-top:7px;
+	margin-bottom: 0;
+    text-align: right;
+}

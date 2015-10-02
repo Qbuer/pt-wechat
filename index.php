@@ -4,14 +4,16 @@
 	require_once('./class/wechat.class.php');
 	include ('./include/function.php');
 	header('Content-type:text/html;charset=utf-8');
+	const ALREADY_BINDED = '你已经绑定过了';
+	const HELP = '输入 ...';
 	$con = new conn();
-	// $weObj = new Wechat( $wechat_options );
-	// $weObj->valid();
-	// $user_openid = $weobj->getRevFrom();//获取用户openid
-	// $user_openid = $con->mres($user_openid);
-	// $msg = $weobj->getRev();//获取用户发送的消息
-	$user_openid = 'aa';
-	$msg = @$_GET['a'];
+	$weObj = new Wechat( $wechat_options );
+	$weObj->valid();
+	$user_openid = $weobj->getRevFrom();//获取用户openid
+	$user_openid = $con->mres($user_openid);
+	$msg = $weobj->getRev();//获取用户发送的消息
+	// $user_openid = 'aa';
+	//$msg = @$_GET['a'];
 	$msg = trim($msg);
 	$user_ptid = -1;
 	$operation = 'NULL';

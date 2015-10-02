@@ -5,29 +5,32 @@
 	const NEWLY = 'new';
 	const SEARCH = 'search';
 
-	const ALREADY_BINDED = '你已经绑定过了';
-	const HELP = '输入 ...';
 	/**
 	 *	@param string $var 构造的全局变量字符串
 	 */
 	function mkglobal( $vars ) {
-		$vars = explode( ':',$var );
+		global $con;
+		$vars = explode( ':',$vars );
 		foreach ($vars as $key => $value) {
 			if( isset($_GET[$key]) ){
-				$GLOBALS[$key] = $con->mres( $_GET[$key] );
-			}elseif( isset($_POST[$key] )) {
-				$GLOBALS[$key] = $con->mres( $_POST[$key] );
+				$GLOBALS[$value] = $con->mres( $_GET[$value] );
+			}elseif( isset($_POST[$value] )) {
+				$GLOBALS[$value] = $con->mres( $_POST[$value] );
+			}else{
+				return false;
 			}
 		}
+		return true;
 	}
 	/**
 	 * 返回用户绑定链接
 	 * @return string $text;
 	 */
 	function user_bind() {
+		global $ptset,$user_openid;
 		$base_url = $ptset['base_url'];
 		$url = "http://$base_url/weixin/go.php?openid=$user_openid&operation=bind";
-		$text = "< a href = '$url' >点击绑定</a>";
+		$text = "<a href = '$url' >点击绑定</a>";
 		return $text;
 	}
 

@@ -1,16 +1,17 @@
-$('#bind_button').click(function () {
+$('#bind-button').click(function () {
 	var user = $('#User').val();
 	var password = $('#Password').val();
 	var openid = $('#openid').html();
 	$.post(
 		'do.php',
 		{user:user,password:password,openid:openid},
-		msg_handle( data, function ( data ){
-			alert('绑定成功!');
-			$('#bind-success').html('成功绑定账号:'+user);
-			$('#bind-success').show();
-			$('#bind-button').attr('disabled','disabled');
-		}) ,
+		function (data) {
+			msg_handle( data, function ( data ){
+				alert('绑定成功!');
+				$('#bind-success').html('成功绑定账号:'+user);
+				$('#bind-success').show();
+				$('#bind-button').attr('disabled','disabled');
+			})} ,
 		'json');
 })
 $('.download').click(function () {
@@ -22,7 +23,7 @@ $('.download').click(function () {
 		// 	$(this).attr('disabled','disabled');
 		// }),
 		function (data){
-			msg_handle(data , function () {
+			msg_handle(data , function (data) {
 				alert('添加下载成功!');
 		 		$(this).attr('disabled','disabled');
 			})
