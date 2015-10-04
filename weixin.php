@@ -18,7 +18,7 @@ print("<table width=\"940\" class=\"main\" border=\"0\" cellspacing=\"0\" cellpa
 		if(mysql_num_rows($res) >0){
 			$sql = "DELETE FROM `bookmarks` WHERE `userid` = {$CURUSER['id']}";
 			sql_query($sql);
-			echo mysql_error();
+			$Cache->delete_value('user_'.$user_ptid.'_bookmark_array');
 			if(mysql_affected_rows() > 0)
 				echo "<script> alert ('清理成功')</script>";
 			else 
